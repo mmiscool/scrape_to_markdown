@@ -3,6 +3,12 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.7](https://github.com/mmiscool/scrape_to_markdown/compare/v1.0.6...v1.0.7) (2024-12-14)
+
+### 🤖 Build System
+
+* Hopefully trigger new npm publish ([20193d1](https://github.com/mmiscool/scrape_to_markdown/commit/20193d1c843674b5c66aab8e5e9dd848a28e543e))
+
 ## [1.0.6](https://github.com/mmiscool/scrape_to_markdown/compare/v1.0.5...v1.0.6) (2024-12-14)
 
 ### 🤖 Build System
