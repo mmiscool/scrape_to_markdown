@@ -1,98 +1,118 @@
-# Clipper
-
-Clipper is a Node.js command line tool that allows you to easily clip content from web pages and convert it to Markdown. It uses [Mozilla's Readability library](https://github.com/mozilla/readability) and [Turndown](https://github.com/mixmark-io/turndown) under the hood to parse web page content and convert it to Markdown.
-
-Clipper provides a quick and simple way to save bits of content from the web for personal archival or note taking purposes, similar to browser extensions like Evernote Web Clipper or Notion Web Clipper. However, Clipper runs entirely in the terminal so you don't need to install any extensions or sign up for accounts.
+# Scrape to markdown
+This project extracts the functionality of fetching a URL and generating a markdown string from [clipper.js](https://github.com/philschmid/clipper.js) and packages it as a library that can be included in to your project using NPM. 
 
 
-| HTML                                   | Markdown                                       |
-| -------------------------------------- | ---------------------------------------------- |
-| ![Screenshot of HTMl](assets/html.png) | ![Screenshot of Markdown](assets/markdown.png) |
+Scraper to Markdown is a lightweight JavaScript library that allows you to scrape articles or web pages and convert their content into Markdown format. This is particularly useful for archiving, content generation, or data processing tasks.
+
+## Features
+
+- Extracts main content from web pages.
+- Converts HTML content into Markdown using [Turndown](https://github.com/mixmark-io/turndown).
+- Handles GitHub Flavored Markdown (GFM) for better compatibility.
+- Fallback mechanism for handling URLs that return raw Markdown.
+- Built-in support for readability parsing via [@mozilla/readability](https://github.com/mozilla/readability).
 
 ## Installation
 
-```
-npm install -g @philschmid/clipper
-```
+Install the library using npm:
 
-_note: for crawling you need `playwright` and the browser dependencies._
+```bash
+npm install @mmiscool/scrape_to_markdown
+```
 
 ## Usage
 
-### Clip
+### Import the Library
 
-**Options:**
-
-- `-i, --input <file> | <directory>` - Input file (html) or directory to clip content from. If a directory is provided, all files in the directory will be clipped.
-- `-u, --url <url>` - URL to clip content from
-- `-f, --format <format>` - Output format (markdown, json) (default: markdown)
-- `-o, --output <file>` - Output file for clipped content (default: output.md)
-
-
-**Examples:**
-
-1. Clip content from a URL:
-
-```
-clipper clip -u <url>
+```javascript
+import { scrapeToMarkdown } from '@mmiscool/scrape_to_markdown';
 ```
 
-2. Clip content from a file:
+### Scrape a Web Page to Markdown
 
-```
-clipper clip -i <file>
-```
-
-3. Clip content from a directory, convert a directory of HTML files to a jsonl file:
-
-```
-clipper clip -i <directory> -f json -o dataset.jsonl
-```
-
-### Crawl 
-
-> [!WARNING]  
-> Only use this command if you know what you're doing. Crawling websites can be resource intensive and may cause issues for the website owner. Use at your own risk.
-
-**Options:**
-
-- `-u, --url <url>` - URL to crawl
-- `-g, --glob <glob>` - Glob pattern to match URLs against
-- `-o, --output <file>` - Output file for crawled content (default: dataset.jsonl)
-
-**Examples:**
-
-Crawl a site and clip all pages:
-
-```
-clipper crawl -u <url>
+```javascript
+(async () => {
+    const url = 'https://example.com/some-article';
+    try {
+        const markdown = await scrapeToMarkdown(url);
+        console.log(markdown);
+    } catch (error) {
+        console.error('Error scraping the URL:', error);
+    }
+})();
 ```
 
-Results will be saved in `dataset.jsonl` file in the current directory.
+### Fallback for Raw Markdown URLs
 
-## Alternative use cases 
+The library can handle cases where the URL directly provides Markdown content. It will return the raw Markdown if no HTML is detected.
 
-### Convert PDF to Markdown
+## API
 
-If you want to convert a PDF to Markdown you can use [poppler](https://wiki.ubuntuusers.de/poppler-utils/) to convert the PDF to HTML and then use Clipper to convert the HTML to Markdown.
+### `scrapeToMarkdown(url: string): Promise<string>`
 
+Scrapes the content from the provided URL and converts it to Markdown.
+
+- **Parameters**:
+  - `url`: The URL of the web page to scrape.
+- **Returns**: A `Promise` resolving to the Markdown content.
+
+### `extract_from_url(page: string): Promise<string>`
+
+Uses [JSDOM](https://github.com/jsdom/jsdom) and [@mozilla/readability](https://github.com/mozilla/readability) to extract and convert the primary content from a web page into Markdown.
+
+### `extract_from_html(html: string): Promise<string>`
+
+Converts raw HTML input into Markdown.
+
+### `oldScrapeToMarkdown(url: string): Promise<string>`
+
+Legacy scraper for handling edge cases or simpler scraping needs.
+
+## Dependencies
+
+This library relies on the following NPM packages:
+
+- [axios](https://www.npmjs.com/package/axios) for HTTP requests.
+- [cheerio](https://www.npmjs.com/package/cheerio) for parsing HTML content.
+- [turndown](https://www.npmjs.com/package/turndown) for converting HTML to Markdown.
+- [turndown-plugin-gfm](https://www.npmjs.com/package/turndown-plugin-gfm) for GitHub Flavored Markdown support.
+- [@mozilla/readability](https://www.npmjs.com/package/@mozilla/readability) for extracting readable content from web pages.
+- [jsdom](https://www.npmjs.com/package/jsdom) for DOM simulation.
+
+## Examples
+
+### Scraping a Blog Post
+
+```javascript
+import { scrapeToMarkdown } from '@mmiscool/scrape_to_markdown';
+
+(async () => {
+    const url = 'https://medium.com/some-blog-post';
+    const markdown = await scrapeToMarkdown(url);
+    console.log(markdown);
+})();
 ```
-pdftohtml -c -s -noframes test.pdf test.html
-clipper clip -i test.html
+
+### Converting Raw HTML to Markdown
+
+```javascript
+import { extract_from_html } from '@mmiscool/scrape_to_markdown';
+
+const html = `
+    <article>
+        <h1>Example Article</h1>
+        <p>This is an example paragraph.</p>
+    </article>
+`;
+
+(async () => {
+    const markdown = await extract_from_html(html);
+    console.log(markdown);
+})();
 ```
 
 
-## Local Development
 
-- Clone the repo
-- Run `npm install`
-- Run `npm run test -- clip -u https://huggingface.co/docs/transformers/index` to test the CLI
-- Run `npm run test -- clip -i examples/` to test the CLI with directory input
-- Run `npm run test -- crawl -u https://awsdocs-neuron.readthedocs-hosted.com/en/v2.14.1/index.html -g https://awsdocs-neuron.readthedocs-hosted.com/en/v2.14.1/\*\*/\*` to crawl the AWS Neuron docs
-- Run `npm run build` to build for production
-- Run `npm install -g .` to symlink the CLI for local testing
-- Run `clipper clip -u https://huggingface.co/docs/transformers/index` to build for development
-- Remove the symlink with `npm r clipper -g`
 ## Credits
 
 Clipper uses the following open source libraries:
@@ -105,12 +125,3 @@ Clipper uses the following open source libraries:
 
 * Apache 2.0
 
-
-## Release to npm
-
-1. Remove old build files with `rm -rf dist`
-1. Update the version in `package.json` if minor or major version
-2. Run `npm run build`
-3. Run `npm publish --access public`
-4. Create a new release on GitHub
-5. Update the version in `package.json` to the next patch version

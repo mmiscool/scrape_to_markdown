@@ -1,47 +1,37 @@
 {
-  "name": "@philschmid/clipper",
-  "version": "0.2.1",
-  "description": "A CLI to clip articles from the web and save them as markdown files.",
-  "author": "Philipp Schmid",
-  "main": "dist/index.js",
+  "name": "@mmiscool/scrape_to_markdown",
+  "version": "1.0.0",
+  "description": "A library to scrape articles from the web and convert them into Markdown format.",
+  "author": "mmiscool",
+  "main": "src/scrapeToMarkdown.js",
   "scripts": {
-    "test": "ts-node src/index.ts",
-    "build": "tsc"
-  },
-  "bin": {
-    "clipper": "dist/index.js"
+    "test": "node src/scrapeToMarkdown.js"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "dependencies": {
     "@mozilla/readability": "^0.4.4",
-    "commander": "^11.0.0",
-    "crawlee": "^3.5.4",
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
     "jsdom": "^22.1.0",
-    "linkedom": "^0.15.3",
-    "playwright": "^1.38.1",
     "turndown": "^6.0.0",
     "turndown-plugin-gfm": "^1.0.2"
   },
-  "devDependencies": {
-    "ts-node": "^10.9.1",
-    "@commander-js/extra-typings": "^11.0.0",
-    "@types/jsdom": "^21.1.3",
-    "@types/node": "^20.7.0",
-    "@types/turndown": "^5.0.2",
-    "typescript": "^5.2.2"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/philschmid/clipper.js.git"
+    "url": "git+https://github.com/mmiscool/scrape_to_markdown.git"
   },
   "keywords": [
-    "CLI"
+    "scraper",
+    "markdown",
+    "web",
+    "cli",
+    "npm"
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/philschmid/clipper.js/issues"
+    "url": "https://github.com/mmiscool/scrape_to_markdown/issues"
   },
-  "homepage": "https://github.com/philschmid/clipper.js#readme"
+  "homepage": "https://github.com/mmiscool/scrape_to_markdown#readme"
 }
