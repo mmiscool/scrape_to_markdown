@@ -59,26 +59,6 @@ export async function oldScrapeToMarkdown(url) {
 
 
 
-// async function dataScraperTest() {
-//     // const doc = new JSDOM("<body>Look at this cat: <img src='./cat.jpg'></body>", {
-//     //     url: "https://www.example.com/the-page-i-got-the-source-from"
-//     // });
-
-//     // fetch the URL https://github.com/mmiscool/aiCoder
-//     const URLtoConvertToMarkdown = 'https://github.com/mmiscool/aiCoder';
-
-//     const markdown = await extract_from_url(URLtoConvertToMarkdown);
-//     console.log(markdown);  
-
-// }
-
-// dataScraperTest();
-
-
-
-// Below code was pulled from https://github.com/philschmid/clipper.js/blob/main/src/clipper.ts
-// LICENSE https://github.com/philschmid/clipper.js/blob/main/LICENSE
-// Converted to normal JS and added to this file
 
 
 const turndownService = new TurndownService({
