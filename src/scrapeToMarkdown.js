@@ -7,7 +7,6 @@ import { JSDOM } from 'jsdom';
 import { gfm } from 'turndown-plugin-gfm';
 
 
-
 export async function scrapeToMarkdown(url) {
     try {
         return await extract_from_url(url);

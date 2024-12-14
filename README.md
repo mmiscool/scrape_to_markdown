@@ -17,7 +17,7 @@ Scraper to Markdown is a lightweight JavaScript library that allows you to scrap
 Install the library using npm:
 
 ```bash
-npm install @mmiscool/scrape_to_markdown
+npm install @mmiscool/scrape_to_markdown -s
 ```
 
 ## Usage
