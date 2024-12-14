@@ -29,8 +29,7 @@
     "cli",
     "npm"
   ],
-  "npmPublish": true,
-  "npmAccess": "public",
+  "private": false,
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/mmiscool/scrape_to_markdown/issues"

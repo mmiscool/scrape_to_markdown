@@ -177,5 +177,7 @@
                 "message": "chore(${nextRelease.type}): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
             }
         ]
-    ]
+    ],
+    "npmPublish": true,
+    "npmAccess": "public"
 }
