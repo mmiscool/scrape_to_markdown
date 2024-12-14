@@ -1,6 +1,6 @@
 {
   "name": "@mmiscool/scrape_to_markdown",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A library to scrape articles from the web and convert them into Markdown format.",
   "author": "mmiscool",
   "main": "src/scrapeToMarkdown.js",
