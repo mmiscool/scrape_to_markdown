@@ -3,7 +3,9 @@
         "main",
         {
             "name": "develop",
-            "prerelease": true
+            "prerelease": true,
+            "npmPublish": true,
+            "npmAccess": "public"
         }
     ],
     "plugins": [
